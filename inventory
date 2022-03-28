@@ -1,1 +1,1 @@
-ubuntu@192.168.8.142
+ubuntu@192.168.8.143 apache_package=apache2 Php_package=libapache2-mod-php
