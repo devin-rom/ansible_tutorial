@@ -1,0 +1,36 @@
+---
+ 
+ - hosts: all
+   become: true
+   tasks:
+   - name: install update(Ubuntu)
+     tags: always
+     apt:
+       upgrade: dist
+       update_cache: yes
+     when: ansible_distribution == "Ubuntu"   
+ 
+ 
+ - hosts: all
+   become: true
+   tasks:
+   
+   - name: create devin user
+     tags: always
+     user:
+       name: devin
+       groups: root
+  
+   - name: add ssh key for devin
+     tags: always
+     authorized_key:
+       user: devin
+       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF3Qg0+ic+wT+aK9oLXf/fuE52xSx3cH+e0/tcR0czm8 ansible"
+     
+   - name: add sudoers file for devin
+     tags: always
+     copy:
+       src: sudoer_devin
+       dest: /etc/sudoers.d/devin
+       owner: root
+       group: root
